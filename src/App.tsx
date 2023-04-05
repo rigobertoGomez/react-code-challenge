@@ -1,14 +1,32 @@
-import RavnLogo from "@/assets/ravn-logo.svg"
+import { useEffect } from "react";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
+import RavnLogo from "./assets/ravn-logo.svg";
+// Layouts
+import { RootLayout } from "@/layouts";
 
-function App() { 
-  return (
-    <div className="w-screen h-screen flex items-center justify-center bg-neutral-5">     
-      <div className="flex flex-col items-center space-y-2">
-      <img src={RavnLogo} alt="" className="w-12" />
-      <h1 className="text-4xl text-neutral-1">React code challenge</h1> 
-      </div>
-    </div>
-  )
+// pages
+import {Home, NotFound, Settings} from "@/pages";
+
+
+function App() {
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route>
+        <Route path="/" element={<RootLayout />}>
+          <Route index path="/" element={<Home />} />
+          <Route index path="/settings" element={<Settings />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    )
+  );
+
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;
