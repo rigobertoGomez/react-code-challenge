@@ -3,7 +3,7 @@ import { TaskCard } from "@/components/common";
 
 interface TasksColumnProps {
   title: string;
-  tasks: Array<any>;
+  tasks?: Array<any>;
 }
 
 function TasksColumn({ title, tasks }: TasksColumnProps) {

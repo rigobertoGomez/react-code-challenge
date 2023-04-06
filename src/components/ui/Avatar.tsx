@@ -1,5 +1,5 @@
 import clsx from "clsx";
-
+import { UserIcon } from "@/components/Icons";
 interface Props {
   src: string;
   alt: string;
@@ -9,7 +9,7 @@ interface Props {
 function Avatar({ variant, src, alt }: Props) {
   const styles = "rounded-full inline-flex items-center justify-center overflow-hidden";
   const sizeStyles = {
-    xs: "w-32 h-32",
+    xs: "w-8 h-8",
     md: "w-10 h-10",
     lg: "w-12 h-12",
   }[variant];
@@ -19,7 +19,9 @@ function Avatar({ variant, src, alt }: Props) {
       {
         src ?
         <img src={src} alt={alt} className="object-cover w-full h-full" />
-        : <span className="w-full h-full bg-neutral-2"></span>
+        : <span className="w-full h-full bg-neutral-2 inline-flex items-center justify-center">
+          <UserIcon className="w-5 h-5 text-neutral-1" />
+        </span>
       }
     </span>
   );
