@@ -1,44 +1,72 @@
-import { Fragment, ReactNode } from "react";
+import { Fragment, ReactNode, useEffect, useState } from "react";
 import clsx from "clsx";
 import { Menu, Transition } from "@headlessui/react";
+import Tag, { TagProps } from "./Tag";
 import { Avatar } from "@/components/ui";
+import { Task, TaskTag } from "@/models";
+import { formatDate } from "@/utilities";
 import {
   EllipsisHorizontalIcon,
   EditIcon,
   TrashIcon,
   AlarmIcon,
 } from "@/components/Icons";
-interface TagProps {
-  title: string;
-  variant: "red" | "green" | "yellow" | "default";
-  children?: ReactNode;
+
+interface TimerTagProps {
+  date: Date;
 }
-const Tag = ({ title, variant, children }: TagProps) => {
-  const variantStyles = {
-    red: "bg-primary-4/10 text-primary-4",
-    yellow: "bg-tertiary-4/10 text-tertiary-4",
-    green: "bg-secondary-4/10 text-secondary-4",
-    default: "bg-neutral-2/10 text-neutral-1",
-  }[variant];
+
+const TimerTag = ({ date }: TimerTagProps) => {
+  const [title, setTitle] = useState<string>();
+  const [variant, setVariant] = useState<TagProps["variant"]>();
+
+  const getTaskTime = (date: Date) => {
+    const today = new Date();
+    const currentDate = new Date(date);
+    const twoDaysAgo = new Date(date);
+    twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
+
+    const title = formatDate(date);
+
+    // Define colors
+    if (currentDate >= today) {
+      const onTimetitle =
+        currentDate.toDateString() === today.toDateString() ? "Today" : title;
+      setTitle(onTimetitle);
+      setVariant("default");
+      return;
+    } else if (today >= twoDaysAgo && today < currentDate) {
+      setVariant("yellow");
+      setTitle(title);
+      return;
+    } else {
+      setVariant("red");
+      setTitle(title);
+      return;
+    }
+  };
+
+  useEffect(() => {
+    if (date) getTaskTime(date);
+  }, [date]);
+
   return (
-    <span
-      className={clsx(
-        "inline-flex items-center py-1 px-4 rounded text-[15px] font-semibold uppercase bg-primary-4/10",
-        variantStyles
-      )}
-    >
-      {children && <span className="w-6 h-6 inline-flex items-center mr-2">{children}</span>}
-      {title}
-    </span>
+    <Tag title={title} variant={variant}>
+      <AlarmIcon className="w-5 h-5" />
+    </Tag>
   );
 };
 
-function TaskCard() {
+interface TaskProps {
+  task: Task;
+}
+
+function TaskCard({ task }: TaskProps) {
   return (
     <article className="w-[348px] h-[208px] p-4 bg-neutral-4 rounded-lg space-y-4">
       <div className="flex items-center justify-between">
         <span className="text-neutral-1 text-lg font-semibold flex-1 truncate">
-          Twiiter
+          {task?.name}
         </span>
 
         <Menu as="div" className="relative inline-block text-left">
@@ -88,18 +116,25 @@ function TaskCard() {
       </div>
       <div className="flex items-center justify-between">
         <span className="text-neutral-1 text-[15px] font-semibold">
-          Due date
+          {`${task?.pointEstimate} points`}
         </span>
-        <Tag title="Yesterday" variant="default">
+        <TimerTag date={task?.dueDate} />
+        {/* <Tag title="Yesterday" variant="default">
           <AlarmIcon className="w-5 h-5" />
-        </Tag>
+        </Tag> */}
       </div>
       <div className="flex items-center space-x-2">
-        <Tag title="Yesterday" variant="yellow" />
-        <Tag title="Yesterday" variant="green" />
+        {task?.tags?.map((tag) => (
+          <Tag key={tag} title={`${tag}`} variant="green" />
+        ))}
       </div>
       <div className="flex items-center justify-between">
-        <Avatar variant="xs" />
+        <Avatar
+          src={task?.assignee?.avatar}
+          title={task?.assignee?.fullName}
+          alt={task?.assignee?.fullName}
+          variant="xs"
+        />
       </div>
     </article>
   );
