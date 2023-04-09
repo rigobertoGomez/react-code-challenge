@@ -3,8 +3,10 @@ import { PlusIcon, GridIcon, ListIcon } from "@/components/Icons";
 import { Sidebar, TopNavigationBar } from "@/components/layout";
 import { Button } from "@/components/ui";
 import { SwitchButton } from "@/components/common";
+import { useTasksContext } from "@/context";
 
 export default function RootLayout() {
+  const { setOpenCreateTaskDialog } = useTasksContext();
   return (
     <div className="h-screen w-screen bg-neutral-5 overflow-hidden">
       <div className="max-w-screen-2xl mx-auto h-full px-8">
@@ -19,11 +21,11 @@ export default function RootLayout() {
                 <div className="flex items-center">
                   <SwitchButton />
                 </div>
-                <Button>
+                <Button onClick={() => setOpenCreateTaskDialog(true)}>
                   <PlusIcon className="w-3.5 h-3.5" />
                 </Button>
               </div>
-              <main className="flex-1">                
+              <main className="flex-1">
                 <Outlet />
               </main>
             </div>
