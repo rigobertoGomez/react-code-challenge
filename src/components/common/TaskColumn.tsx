@@ -8,7 +8,6 @@ interface TasksColumnProps {
 
 function TasksColumn({ status }: TasksColumnProps) {
   const { loading, error, data } = useTasks({ status });
-  
   const tasks = data?.tasks;
 
   return (

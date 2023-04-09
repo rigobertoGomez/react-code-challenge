@@ -18,12 +18,12 @@ function Tag({ title, variant, children }: TagProps) {
   return (
     <span
       className={clsx(
-        "inline-flex items-center py-1 px-4 rounded text-[15px] font-semibold uppercase bg-primary-4/10",
+        "inline-flex items-center py-1 px-4 rounded text-[15px] font-semibold uppercase",
         variantStyles
       )}
     >
       {children && (
-        <span className="w-6 h-6 inline-flex items-center mr-2">
+        <span className="w-6 h-6 inline-flex items-center mr-1">
           {children}
         </span>
       )}

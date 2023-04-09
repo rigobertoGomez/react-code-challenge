@@ -4,16 +4,16 @@ import { User } from './user';
 export enum Status {
     BACKLOG = 'BACKLOG',
     CANCELLED = 'CANCELLED',
-    DONE=  'DONE',
+    DONE= 'DONE',
     IN_PROGRESS = 'IN_PROGRESS',
     TODO = 'TODO'
 }
 export enum PointEstimate {
-    EIGHT,
-    FOUR,
-    ONE,
-    TWO,
-    ZERO
+    ZERO = 0,
+    ONE = 1,
+    TWO = 2,
+    FOUR = 4 ,
+    EIGHT = 8,
 }
 export enum TaskTag {
     ANDROID,
@@ -28,6 +28,7 @@ export enum TaskTag {
 export type FilterTaskInput = {  
     status: Status
 }
+
 export type Task = {
     assignee: User
     createdAt: Date
@@ -40,3 +41,12 @@ export type Task = {
     status: Status
     tags: [TaskTag]
 }
+
+export type CreateTaskInput = {
+    assigneeId: string
+    dueDate: Date
+    name: string
+    pointEstimate: PointEstimate
+    status: Status
+    tags: [TaskTag]
+    }

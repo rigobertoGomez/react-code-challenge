@@ -1,7 +1,9 @@
 import { NotificationIcon, SearchIcon } from "@/components/Icons";
 import { Avatar } from "@/components/ui";
+import { useTasksContext } from "@/context";
 
 function TopNavigationBar() {
+
   return (
     <header className="h-16 flex-shrink-0 w-full bg-neutral-4 rounded-2xl flex items-center space-x-12 p-4">
       <div className="relative flex items-center flex-1 h-full">
@@ -12,8 +14,8 @@ function TopNavigationBar() {
         <input
           id="search-field"
           className="block h-full bg-transparent outline-none w-full border-0 py-0 pl-10 pr-0 text-neutral-2 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
-          placeholder="Search"       
-          autoComplete="off"   
+          placeholder="Search"
+          autoComplete="off"
           name="search"
         />
       </div>

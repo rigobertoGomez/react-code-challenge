@@ -1,10 +1,14 @@
 import { Fragment, ReactNode, useEffect, useState } from "react";
 import clsx from "clsx";
+import { useMutation } from "@apollo/client";
 import { Menu, Transition } from "@headlessui/react";
 import Tag, { TagProps } from "./Tag";
 import { Avatar } from "@/components/ui";
-import { Task, TaskTag } from "@/models";
+import { Task, TaskTag, PointEstimate } from "@/models";
 import { formatDate } from "@/utilities";
+import { DELETE_TASK, GET_TASKS } from "@/services";
+import { useTasksContext } from "@/context";
+
 import {
   EllipsisHorizontalIcon,
   EditIcon,
@@ -62,6 +66,17 @@ interface TaskProps {
 }
 
 function TaskCard({ task }: TaskProps) {
+  const { setOpenDeleteTaskDialog, setCurrentTask } = useTasksContext();
+
+
+
+  const onDeleteTask = async (task: Task) => {
+    try {
+      setCurrentTask(task);
+      setOpenDeleteTaskDialog(true);
+    } catch (error) {}
+  };
+
   return (
     <article className="w-[348px] h-[208px] p-4 bg-neutral-4 rounded-lg space-y-4">
       <div className="flex items-center justify-between">
@@ -102,6 +117,7 @@ function TaskCard({ task }: TaskProps) {
                       className={`${
                         active ? "bg-neutral-4 text-white" : "text-neutral-1"
                       } group flex w-full text-[15px] items-center rounded-md px-4 py-2 text-sm`}
+                      onClick={() => onDeleteTask(task)}
                     >
                       {" "}
                       <TrashIcon className="h-4 w-4 flex-shrink-0" />
@@ -116,7 +132,7 @@ function TaskCard({ task }: TaskProps) {
       </div>
       <div className="flex items-center justify-between">
         <span className="text-neutral-1 text-[15px] font-semibold">
-          {`${task?.pointEstimate} points`}
+          {`${PointEstimate[task?.pointEstimate]} points`}
         </span>
         <TimerTag date={task?.dueDate} />
         {/* <Tag title="Yesterday" variant="default">
