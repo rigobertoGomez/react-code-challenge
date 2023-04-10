@@ -8,6 +8,7 @@ interface Menuitem  {
 }
 const menu = [
   { title: "Dashboard", path: "/", icon: <GridIcon className="w-6 h-6" /> },  
+  { title: "Settings", path: "/settings", icon: <GridIcon className="w-6 h-6" /> },  
 ];
 
 function Sidebar() {

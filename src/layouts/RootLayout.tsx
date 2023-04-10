@@ -1,12 +1,8 @@
 import { Outlet } from "react-router-dom";
-import { PlusIcon, GridIcon, ListIcon } from "@/components/Icons";
 import { Sidebar, TopNavigationBar } from "@/components/layout";
-import { Button } from "@/components/ui";
-import { SwitchButton } from "@/components/common";
-import { useTasksContext } from "@/context";
 
 export default function RootLayout() {
-  const { setOpenCreateTaskDialog } = useTasksContext();
+  
   return (
     <div className="h-screen w-screen bg-neutral-5 overflow-hidden">
       <div className="max-w-screen-2xl mx-auto h-full px-8">
@@ -15,17 +11,9 @@ export default function RootLayout() {
             <Sidebar />
           </aside>
           <div className="flex flex-col gap-y-9 pt-8">
-            <TopNavigationBar />
+            {/* <TopNavigationBar /> */}
             <div className="space-y-6 flex-1 flex flex-col overflow-hidden">
-              <div className="flex items-center justify-between space-x-2 h-10 flex-shrink-0">
-                <div className="flex items-center">
-                  <SwitchButton />
-                </div>
-                <Button onClick={() => setOpenCreateTaskDialog(true)}>
-                  <PlusIcon className="w-3.5 h-3.5" />
-                </Button>
-              </div>
-              <main className="flex-1">
+              <main className="flex-1 overflow-hidden">
                 <Outlet />
               </main>
             </div>

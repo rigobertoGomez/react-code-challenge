@@ -10,8 +10,7 @@ import RavnLogo from "./assets/ravn-logo.svg";
 import { RootLayout } from "@/layouts";
 
 // pages
-import {Home, NotFound, Settings} from "@/pages";
-
+import { Home, NotFound, Settings } from "@/pages";
 
 function App() {
   const router = createBrowserRouter(
@@ -19,7 +18,7 @@ function App() {
       <Route>
         <Route path="/" element={<RootLayout />}>
           <Route index path="/" element={<Home />} />
-          <Route index path="/settings" element={<Settings />} />
+          <Route path="/settings" element={<Settings />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Route>
