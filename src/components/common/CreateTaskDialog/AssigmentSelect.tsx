@@ -45,7 +45,7 @@ function AssignmentSelect({ onChange }: AssignmentSelectProps) {
                   variant="xs"
                 />
               ) : (
-                <UserIcon className="w-3 h-3" />
+                <UserIcon className="w-4 h-4" />
               )}
             </div>
             <span className="truncate">
@@ -62,7 +62,7 @@ function AssignmentSelect({ onChange }: AssignmentSelectProps) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <div className="absolute px-1 py-1 left-0 mt-2 w-[240px] origin-top-right rounded-md bg-neutral-3 shadow-lg ring-1 ring-neutral-2 focus:outline-none space-y-1">
+          <div className="absolute px-1 py-1 left-0 mt-2 w-[240px] origin-top-right rounded-md bg-neutral-3 shadow-lg ring-1 ring-neutral-2 focus:outline-none space-y-1 z-20">
             <span className="font-semibold text-neutral-2 text-xl px-3">
               Assign To..
             </span>

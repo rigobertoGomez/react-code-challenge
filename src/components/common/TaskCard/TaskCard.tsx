@@ -68,8 +68,6 @@ interface TaskProps {
 function TaskCard({ task }: TaskProps) {
   const { setOpenDeleteTaskDialog, setCurrentTask } = useTasksContext();
 
-
-
   const onDeleteTask = async (task: Task) => {
     try {
       setCurrentTask(task);
@@ -78,7 +76,7 @@ function TaskCard({ task }: TaskProps) {
   };
 
   return (
-    <article className="w-[348px] h-[208px] p-4 bg-neutral-4 rounded-lg space-y-4">
+    <article className="w-[348px] min-h-[208px] p-4 bg-neutral-4 rounded-lg space-y-4">
       <div className="flex items-center justify-between">
         <span className="text-neutral-1 text-lg font-semibold flex-1 truncate">
           {task?.name}
@@ -135,15 +133,15 @@ function TaskCard({ task }: TaskProps) {
           {`${PointEstimate[task?.pointEstimate]} points`}
         </span>
         <TimerTag date={task?.dueDate} />
-        {/* <Tag title="Yesterday" variant="default">
-          <AlarmIcon className="w-5 h-5" />
-        </Tag> */}
       </div>
-      <div className="flex items-center space-x-2">
+      <ul className="flex items-center flex-wrap gap-1">
         {task?.tags?.map((tag) => (
-          <Tag key={tag} title={`${tag}`} variant="green" />
+          <li key={tag} className="flex-shrink-0">
+            <Tag title={`${tag}`} variant="green" />
+          </li>
         ))}
-      </div>
+      </ul>
+
       <div className="flex items-center justify-between">
         <Avatar
           src={task?.assignee?.avatar}

@@ -1,12 +1,14 @@
 import { Dialog, Button } from "@/components/ui";
-import EstimateSelect from "./EstimateSelect";
-import AssignmentSelect from "./AssigmentSelect";
 import { useMutation, gql } from "@apollo/client";
-import TagsSelect from "./TagsSelect";
 import { CREATE_TASK, GET_TASKS } from "@/services";
 import { useState } from "react";
 import { CreateTaskInput, Status } from "@/models";
 import { useTasksContext } from "@/context/TasksContext";
+import EstimateSelect from "./EstimateSelect";
+import AssignmentSelect from "./AssigmentSelect";
+import TagsSelect from "./TagsSelect";
+import StatusSelect from "./StatusSelect";
+import DueDateSelect  from "./DueDateSelect/DueDateSelect";
 
 interface NewTaskInterface {
   name: string;
@@ -69,7 +71,7 @@ function CreateTaskDialog() {
             }
           />
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex flex-wrap items-center gap-2">
           <EstimateSelect
             onChange={(value: string | undefined) =>
               setNewtask((newTask: any) => ({
@@ -88,6 +90,22 @@ function CreateTaskDialog() {
               setNewtask((newTask: any) => ({
                 ...newTask,
                 tags: value,
+              }))
+            }
+          />
+          <StatusSelect
+            onChange={(value: string | undefined) =>
+              setNewtask((newTask: any) => ({
+                ...newTask,
+                status: value,
+              }))
+            }
+          />
+          <DueDateSelect
+            onChange={(value: string | undefined) =>
+              setNewtask((newTask: any) => ({
+                ...newTask,
+                dueDate: value,
               }))
             }
           />

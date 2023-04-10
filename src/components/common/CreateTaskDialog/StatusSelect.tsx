@@ -1,53 +1,39 @@
 import { useState, Fragment } from "react";
 import clsx from "clsx";
 import { Listbox, Transition } from "@headlessui/react";
-import { PointEstimate } from "@/models";
+import { Status } from "@/models";
 import { EstimateIcon } from "@/components/Icons";
 import { Tag } from "@/components/common/TaskCard";
 
-interface EstimateSelectProps {
+interface StatusSelectProps {
   onChange: (value: string | undefined) => void;
 }
 
-interface EstimateOption {
-  name: string;
-  value: PointEstimate;
-}
+// interface Status {
+//   name: string;
+//   value: Status;
+// }
 
-const estimatePointsList: EstimateOption[] = [
-  ...Object.keys(PointEstimate)
-    .filter((v) => !isNaN(Number(v)))
-    .map((value) => {
-      return {
-        name: value,
-        value: PointEstimate[value as keyof typeof PointEstimate],
-      };
-    }),
-];
+const statusOptions: string[] = [...Object.keys(Status)];
 
-function EstimateSelect({ onChange }: EstimateSelectProps) {
-  const [selected, setSelected] = useState<EstimateOption | null>(null);
+function StatusSelect({ onChange }: StatusSelectProps) {
+  const [selected, setSelected] = useState<string | undefined>('');
 
   return (
     <Listbox
       value={selected}
       onChange={(value) => {
-        setSelected(value)        
-        onChange(value?.value)
+        setSelected(value);
+        onChange(value);
       }}
     >
       <div className="relative inline-block text-left">
         <Listbox.Button className="outline-none">
-          <div
-            title={selected ? `${selected?.name}` : "Assignee"}
-            className={clsx(
-              "text-neutral-1 px-4 py-1 inline-flex items-center space-x-2 rounded max-w-[200px]",
-              selected ? "bg-transparent" : "bg-neutral-1/10"
-            )}
-          >
-            <EstimateIcon className="w-4 h-4" />
+          <div            
+            className="bg-neutral-1/10 text-neutral-1 px-4 py-1 inline-flex items-center space-x-2 rounded max-w-[200px]"
+          >            
             <span className="truncate">
-              {selected ? `${selected?.name} points` : "Estimate"}
+              {selected ? selected : "Status"}
             </span>
           </div>
         </Listbox.Button>
@@ -60,22 +46,21 @@ function EstimateSelect({ onChange }: EstimateSelectProps) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <div className="absolute px-1 py-1 right-0 mt-2 w-[138px] origin-top-right rounded-md bg-neutral-3 shadow-lg ring-1 ring-neutral-2 focus:outline-none space-y-1 z-20">
+          <div className="absolute px-1 py-1 right-0 mt-2 w-[160px] origin-top-right rounded-md bg-neutral-3 shadow-lg ring-1 ring-neutral-2 focus:outline-none space-y-1">
             <span className="font-semibold text-neutral-2 text-xl px-3">
-              Estimate
+              Status
             </span>
             <Listbox.Options className="divide-y divide-gray-100 outline-none">
-              <div className="">
-                {estimatePointsList?.map((option) => (
-                  <Listbox.Option key={option.value} value={option}>
+              <div>
+                {statusOptions?.map((option) => (
+                  <Listbox.Option key={option} value={option}>
                     {({ active }) => (
                       <button
                         className={`${
                           active ? "bg-neutral-4 text-white" : "text-neutral-1"
                         } group flex w-full text-[15px] items-center rounded-md px-4 py-2 text-sm`}
                       >
-                        <EstimateIcon className="h-4 w-4 flex-shrink-0" />
-                        <span className="ml-2">{`${option.name} points`}</span>
+                        <span>{option?.replaceAll("_", " ")}</span>
                       </button>
                     )}
                   </Listbox.Option>
@@ -89,4 +74,4 @@ function EstimateSelect({ onChange }: EstimateSelectProps) {
   );
 }
 
-export default EstimateSelect;
+export default StatusSelect;
