@@ -16,14 +16,14 @@ function Button({ title, variant, children, selected, ...props }: Props & React.
     primary:
       "bg-primary-4 border-primary-4 hover:bg-primary-2 hover:border-primary-2 disabled:bg-primary-2 disabled:border-primary-2 text-white text-[15px] h-10",
     secondary:
-      "bg-transparent hover:bg-neutral-2 disabled:text-neutral-2 text-white",
+      "bg-transparent hover:bg-neutral-2 disabled:text-neutral-2",
   }[variant];
   const selectedStyles =
     variant === "secondary"
       ? selected
         ? "border border-primary-4 text-primary-4"
-        : "border-transparent"
-      : "";
+        : "border-transparent text-neutral-1"
+      : "text-primary-1";
 
 
   return (
