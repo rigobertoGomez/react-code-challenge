@@ -25,8 +25,7 @@ function TasksContainer({
   const { loading, error, data } = useTasks({ status });
   const tasks = data?.tasks || [];
   const { view }: any = useTasksContext();
-
-  console.log(error);
+  
   if (view === "GRID") {
     return (
       <TaskColumn

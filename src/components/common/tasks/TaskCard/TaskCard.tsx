@@ -109,7 +109,7 @@ function TaskCard({ task, setDragged }: TaskProps) {
       <ul className="flex items-center flex-wrap gap-1">
         {task?.tags?.map((tag) => (
           <li key={tag} className="flex-shrink-0">
-            <Tag title={`${tag}`} variant="green" />
+            <Tag title={`${String(tag)?.replaceAll("_", " ")}`} variant="green" />
           </li>
         ))}
       </ul>
