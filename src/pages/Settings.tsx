@@ -13,25 +13,45 @@ export default function Settings() {
         <ul className="text-neutral-1 space-y-3">
           <li className="space-y-1">
             <span className="text-sm text-neutral-2 block">Name</span>
-            <p className="text-lg">{profile?.fullName}</p>
+            {loading ? (
+              <span className="block w-64 h-6 rounded bg-neutral-3 animate-pulse"></span>
+            ) : (
+              <p className="text-lg">{profile?.fullName}</p>
+            )}
           </li>
           <li className="space-y-1">
             <span className="text-sm text-neutral-2 block">Email</span>
-            <p>{profile?.email}</p>
+            {loading ? (
+              <span className="block w-32 h-6 rounded bg-neutral-3 animate-pulse"></span>
+            ) : (
+              <p>{profile?.email}</p>
+            )}
           </li>
           <li className="space-y-1">
             <span className="text-sm text-neutral-2 block">Type</span>
-            <span className="inline-flex px-4 py-1 rounded bg-neutral-1/10 text-neutral-1">
-              {profile?.type}
-            </span>
+            {loading ? (
+              <span className="block w-32 h-8 rounded bg-neutral-3 animate-pulse"></span>
+            ) : (
+              <span className="inline-flex px-4 py-1 rounded bg-neutral-1/10 text-neutral-1">
+                {profile?.type}
+              </span>
+            )}
           </li>
           <li className="space-y-1">
             <span className="text-sm text-neutral-2 block">Created at</span>
-            <p>{formatDate(profile?.createdAt)}</p>
+            {loading ? (
+              <span className="block w-24 h-6 rounded bg-neutral-3 animate-pulse"></span>
+            ) : (
+              <p>{formatDate(profile?.createdAt)}</p>
+            )}
           </li>
           <li className="space-y-1">
             <span className="text-sm text-neutral-2 block">Updated at</span>
-            <p>{formatDate(profile?.updatedAt)}</p>
+            {loading ? (
+              <span className="block w-24 h-6 rounded bg-neutral-3 animate-pulse"></span>
+            ) : (
+              <p>{formatDate(profile?.updatedAt)}</p>
+            )}
           </li>
         </ul>
       </div>

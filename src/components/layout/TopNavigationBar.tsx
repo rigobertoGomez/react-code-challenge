@@ -1,9 +1,7 @@
 import { NotificationIcon, SearchIcon } from "@/components/Icons";
 import { Avatar } from "@/components/ui";
-import { useTasksContext } from "@/context";
 
 function TopNavigationBar() {
-
   return (
     <header className="h-16 flex-shrink-0 w-full bg-neutral-4 rounded-2xl flex items-center space-x-12 p-4">
       <div className="relative flex items-center flex-1 h-full">
@@ -23,7 +21,7 @@ function TopNavigationBar() {
         <button className="text-neutral-2">
           <NotificationIcon className="h-5 w-5" />
         </button>
-        <Avatar />
+        <Avatar title="" />
       </div>
     </header>
   );

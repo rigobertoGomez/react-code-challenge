@@ -72,12 +72,12 @@ function TaskTable({ status, tasks, loading }: TaskTableProps) {
       <Disclosure defaultOpen>
         {({ open }) => (
           <>
-            <Disclosure.Button className="flex w-full justify-between px-4 py-2 text-left text-neutral-1 hover:bg-neutral-3 focus:outline-none focus-visible:ring border-b border-neutral-3">
+            <Disclosure.Button className="flex w-full justify-between px-4 py-2 text-left text-neutral-1 hover:bg-neutral-3 focus:outline-none focus-visible:ring border-b border-neutral-3 transition-all">
               <div className="text-white flex-shrink-0 h-8 text-lg flex items-center font-semibold">
                 <ChevronIcon
                   className={`${
                     open ? "" : "rotate-180 transform"
-                  } h-3 w-3 text-neutral-2 mr-3.5 transition-all ease-in-out duration-150`}
+                  } h-3 w-3 text-neutral-2 mr-3.5 transition-all ease-in-out duration-200`}
                 />
                 <span className="capitalize">
                   {status?.replaceAll("_", " ").toLocaleLowerCase()}

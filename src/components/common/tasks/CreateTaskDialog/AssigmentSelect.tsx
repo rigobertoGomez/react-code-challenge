@@ -7,7 +7,7 @@ import { useUsers } from "@/hooks";
 import { User } from "@/models/user";
 
 interface AssignmentSelectProps {
-  onChange: (value: string | undefined) => void;
+  onChange: (object: User | null) => void;
   defaultValue: User;
 }
 
