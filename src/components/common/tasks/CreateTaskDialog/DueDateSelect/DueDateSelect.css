@@ -47,9 +47,13 @@
 .react-calendar__tile {
     width: 24px;
     height: 32px;
+    border-radius: 5px;
 }
 
 .react-calendar__tile--active {
     background-color: #DA584B !important;
-    border-radius: 5px;
+}
+
+.react-calendar__tile--now {
+    border: 1px solid #DA584B;
 }

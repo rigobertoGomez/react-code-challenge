@@ -30,7 +30,9 @@ function StatusSelect({ onChange, defaultValue }: StatusSelectProps) {
       <div className="relative inline-block text-left">
         <Listbox.Button className="outline-none">
           <div className="bg-neutral-1/10 text-neutral-1 px-4 py-1 inline-flex items-center space-x-2 rounded max-w-[200px]">
-            <span className="truncate">{selected ? selected?.replaceAll("_", " ") : "Status"}</span>
+            <span className="truncate">
+              {selected ? selected?.replaceAll("_", " ") : "Status"}
+            </span>
           </div>
         </Listbox.Button>
         <Transition
@@ -55,6 +57,7 @@ function StatusSelect({ onChange, defaultValue }: StatusSelectProps) {
                         className={`${
                           active ? "bg-neutral-4 text-white" : "text-neutral-1"
                         } group flex w-full text-[15px] items-center rounded-md px-4 py-2 text-sm`}
+                        type="button"
                       >
                         <span>{option?.replaceAll("_", " ")}</span>
                       </button>

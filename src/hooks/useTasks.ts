@@ -6,9 +6,10 @@ export const useTasks = ( filters:FilterTaskInput) => useQuery(GET_TASKS, {
     variables: { input: filters }
 })
 
-export const useUpdateTask = (prevStatus:any) => useMutation(UPDATE_TASK, {
-    refetchQueries: [{ query: GET_TASKS, variables: { input: {status:prevStatus}} }],
-    update(cache, { data }) {
+export const useUpdateTask = (prevStatus:any) => useMutation(UPDATE_TASK, {    
+    refetchQueries: prevStatus && [{ query: GET_TASKS, variables: { input: {status:prevStatus}} }],
+    update(cache, { data }) {      
+      if(prevStatus !== data?.updateTask.status){
         const { tasks }: any = cache.readQuery({
           query: GET_TASKS,
           variables: { input: { status: data.updateTask.status } },
@@ -18,7 +19,8 @@ export const useUpdateTask = (prevStatus:any) => useMutation(UPDATE_TASK, {
           variables: { input: { status: data.updateTask.status } },
           data: { tasks: [data.updateTask, ...tasks] },
         });
-      },
+      }
+    },
 }); 
 
 export const useDeleteTask = () => useMutation(DELETE_TASK, {

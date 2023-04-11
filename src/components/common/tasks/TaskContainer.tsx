@@ -65,7 +65,7 @@ function TasksContainer({
               </>
             ) : (
               <li className="h-full flex flex-col">
-                <div className="inline-flex justify-center w-full py-12 bg-neutral-4 rounded-lg">
+                <div className="inline-flex justify-center w-full py-12 bg-neutral-4/50 rounded-lg">
                   <p className="text-neutral-3 font-bold">Results Not Found</p>
                 </div>
               </li>

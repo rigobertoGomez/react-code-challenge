@@ -35,7 +35,7 @@ function AssignmentSelect({ onChange, defaultValue }: AssignmentSelectProps) {
           <div
             title={selected ? `${selected?.fullName}` : "Assignee"}
             className={clsx(
-              "text-neutral-1 px-4 py-1 inline-flex items-center space-x-2 rounded max-w-[200px]",
+              "text-neutral-1 px-4 py-1 inline-flex items-center space-x-2 rounded max-w-[160px]",
               selected ? "bg-transparent" : "bg-neutral-1/10"
             )}
           >
@@ -78,6 +78,7 @@ function AssignmentSelect({ onChange, defaultValue }: AssignmentSelectProps) {
                         className={`${
                           active ? "bg-neutral-4 text-white" : "text-neutral-1"
                         } inline-flex w-full text-[15px] items-center rounded-md px-4 py-2`}
+                        type="button"
                       >
                         <div className="flex-shrink-0 inline-flex">
                           <Avatar

@@ -1,9 +1,8 @@
 import { Dialog, Button } from "@/components/ui";
-import { useMutation, gql } from "@apollo/client";
-import { CREATE_TASK, GET_TASKS } from "@/services";
 import { useEffect, useState } from "react";
 import { useTasksContext } from "@/context/TasksContext";
 import { useUpdateTask } from "@/hooks";
+import { Controller, useForm } from "react-hook-form";
 // Components
 import {
   EstimateSelect,
@@ -23,7 +22,6 @@ function EditTaskDialog() {
   const [updateTask, { loading, error }] = useUpdateTask(
     currentTask?.status || null
   );
-
   const [editTask, setEditTask] = useState<any>({
     id: "",
     name: "",
@@ -35,13 +33,17 @@ function EditTaskDialog() {
     position: 0,
   });
 
+  const { handleSubmit, control, reset, formState } = useForm({
+    mode: "all",
+  });
+
   useEffect(() => {
     if (currentTask?.id) {
-      setEditTask({
+      reset({
         id: currentTask?.id,
         name: currentTask?.name,
         assigneeId: currentTask?.assignee?.id,
-        dueDate: currentTask?.dueDate,
+        dueDate: new Date(currentTask?.dueDate),
         pointEstimate: currentTask?.pointEstimate,
         status: currentTask?.status,
         tags: currentTask?.tags,
@@ -50,9 +52,9 @@ function EditTaskDialog() {
     }
   }, [currentTask]);
 
-  const onSubmit = async () => {
+  const onSubmit = async (values: any) => {
     try {
-      await updateTask({ variables: { input: { ...editTask } } });
+      await updateTask({ variables: { input: { ...values } } });
       setOpenEditTaskDialog(false);
     } catch (error) {
       console.error(error);
@@ -65,59 +67,57 @@ function EditTaskDialog() {
       close={() => setOpenEditTaskDialog(false)}
       maxWidth={572}
     >
-      <div className="space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div className="div">
-          <input
-            id="search-field"
-            className="block h-full bg-transparent outline-none w-full border-0 py-2 text-neutral-1 placeholder:text-neutral-2 focus:ring-0 text-xl font-semibold"
-            placeholder="Task title"
-            autoComplete="off"
-            name="search"
-            value={editTask?.name}
-            onChange={(e) =>
-              setEditTask((editTask: any) => ({
-                ...editTask,
-                name: e?.target.value,
-              }))
-            }
+          <Controller
+            control={control}
+            name="name"
+            rules={{ required: true }}
+            render={({ field: { value, onChange } }) => (
+              <input
+                id="search-field"
+                className="block h-full bg-transparent outline-none w-full border-0 py-2 text-neutral-1 placeholder:text-neutral-2 focus:ring-0 text-xl font-semibold"
+                placeholder="Task title"
+                autoComplete="off"
+                name="search"
+                defaultValue={value}
+                onChange={onChange}
+              />
+            )}
           />
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <EstimateSelect
-            defaultValue={editTask?.pointEstimate}
-            onChange={(value: string | undefined) =>
-              setEditTask((editTask: any) => ({
-                ...editTask,
-                pointEstimate: value,
-              }))
-            }
+          <Controller
+            control={control}
+            name="pointEstimate"
+            rules={{ required: true }}
+            render={({ field: { value, onChange } }) => (
+              <EstimateSelect defaultValue={value} onChange={onChange} />
+            )}
           />
-          <TagsSelect
-            defaultValue={currentTask?.tags}
-            onChange={(value: string[] | undefined) =>
-              setEditTask((editTask: any) => ({
-                ...editTask,
-                tags: value,
-              }))
-            }
+          <Controller
+            control={control}
+            name="tags"
+            rules={{ required: true }}
+            render={({ field: { value, onChange } }) => (
+              <TagsSelect defaultValue={value} onChange={onChange} />
+            )}
           />
-          <StatusSelect
-            defaultValue={currentTask?.status}
-            onChange={(value: string | undefined) =>
-              setEditTask((editTask: any) => ({
-                ...editTask,
-                status: value,
-              }))
-            }
+          <Controller
+            control={control}
+            name="status"
+            rules={{ required: true }}
+            render={({ field: { value, onChange } }) => (
+              <StatusSelect defaultValue={value} onChange={onChange} />
+            )}
           />
-          <DueDateSelect
-            defaultValue={currentTask?.dueDate}
-            onChange={(value: string | undefined) =>
-              setEditTask((editTask: any) => ({
-                ...editTask,
-                dueDate: value,
-              }))
-            }
+          <Controller
+            control={control}
+            name="dueDate"
+            rules={{ required: true }}
+            render={({ field: { value, onChange } }) => (
+              <DueDateSelect defaultValue={value} onChange={onChange} />
+            )}
           />
         </div>
         <div className="flex items-center justify-end space-x-2">
@@ -125,18 +125,19 @@ function EditTaskDialog() {
             title="Cancel"
             variant="secondary"
             disabled={loading}
+            type="button"
             onClick={() => {
-              setOpenEditTaskDialog(false);
               setCurrentTask(null);
+              setOpenEditTaskDialog(false);
             }}
           />
           <Button
-            title="Create"
-            disabled={loading}
-            onClick={() => onSubmit()}
+            title="Update"
+            type="submit"
+            disabled={!formState.isValid || loading}
           />
         </div>
-      </div>
+      </form>
     </Dialog>
   );
 }

@@ -10,7 +10,7 @@ import "./DueDateSelect.css";
 
 interface DueDateSelectProps {
   onChange: (value: string | undefined) => void;
-  defaultValue: string
+  defaultValue: string;
 }
 
 function StatusSelect({ onChange, defaultValue }: DueDateSelectProps) {
@@ -53,23 +53,22 @@ function StatusSelect({ onChange, defaultValue }: DueDateSelectProps) {
             {/* @ts-ignore */}
             <Menu.Items static>
               <div className="divide-y divide-neutral-2">
-                {/* <Menu.Item> */}
                 <div className="relativ espace-y-4">
                   <Calendar
                     onChange={(value) => onChangeValue(String(value))}
                     value={value}
                     locale="en-GB"
                   />
-                  <div>
+                  <div className="border-t border-neutral-2">
                     <button
                       className="w-full py-3 hover:bg-neutral-4 text-primary-4 text-center"
                       onClick={() => onChangeValue(String(new Date()))}
+                      type="button"
                     >
                       Today
                     </button>
                   </div>
                 </div>
-                {/* </Menu.Item> */}
               </div>
             </Menu.Items>
           </div>

@@ -29,7 +29,9 @@ function EstimateSelect({ onChange, defaultValue }: EstimateSelectProps) {
   const [selected, setSelected] = useState<PointEstimate | null>(null);
 
   useEffect(() => {
-    setSelected(PointEstimate[defaultValue as keyof typeof PointEstimate] || null);
+    setSelected(
+      PointEstimate[defaultValue as keyof typeof PointEstimate] || null
+    );
   }, [defaultValue]);
 
   return (
@@ -73,6 +75,7 @@ function EstimateSelect({ onChange, defaultValue }: EstimateSelectProps) {
                   <Listbox.Option key={option.value} value={option?.value}>
                     {({ active }) => (
                       <button
+                        type="button"
                         className={`${
                           active ? "bg-neutral-4 text-white" : "text-neutral-1"
                         } group flex w-full text-[15px] items-center rounded-md px-4 py-2 text-sm`}

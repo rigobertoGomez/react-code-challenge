@@ -21,12 +21,13 @@ function TableView() {
   return (
     <div className="absolute w-full h-full space-y-4 overflow-auto pb-8">
       <div className="flex items-stretch border border-neutral-3 bg-neutral-4 rounded divide-x divide-neutral-3 text-neutral-1">
-        {headers?.map((header) => (
+        {headers?.map((header, headerIdx) => (
           <div
             className={clsx(
               header.styles,
               "flex-shrink-0 inline-flex items-center relative p-4"
             )}
+            key={`header-${headerIdx}`}
           >
             <span className="inline-flex">{header.title}</span>
           </div>
