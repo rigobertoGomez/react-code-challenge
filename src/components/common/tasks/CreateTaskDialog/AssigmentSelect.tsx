@@ -27,7 +27,7 @@ function AssignmentSelect({ onChange, defaultValue }: AssignmentSelectProps) {
       value={selected}
       onChange={(value) => {
         setSelected(value);
-        onChange(value?.id);
+        onChange(value);
       }}
     >
       <div className="relative inline-block text-left">

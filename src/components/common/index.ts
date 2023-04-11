@@ -7,5 +7,5 @@ export { default as SwitchButton } from './tasks/SwitchButton';
 export { default as TableView } from './tasks/TableView';
 export * from './tasks/TaskCard';
 export { default as TaskColumn } from './tasks/TaskColumn';
+export { default as TaskContainer } from './tasks/TaskContainer';
 export { default as TaskTable } from './tasks/TaskTable';
-export { default as TasksContainer } from './tasks/TasksContainer';

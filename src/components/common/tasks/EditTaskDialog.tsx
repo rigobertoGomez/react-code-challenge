@@ -20,7 +20,9 @@ function EditTaskDialog() {
     setOpenEditTaskDialog,
   }: any = useTasksContext();
 
-  const [updateTask, { loading, error }] = useUpdateTask();
+  const [updateTask, { loading, error }] = useUpdateTask(
+    currentTask?.status || null
+  );
 
   const [editTask, setEditTask] = useState<any>({
     id: "",

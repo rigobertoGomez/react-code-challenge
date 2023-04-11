@@ -5,7 +5,7 @@ export default function RootLayout() {
   
   return (
     <div className="h-screen w-screen bg-neutral-5 overflow-hidden">
-      <div className="max-w-screen-2xl mx-auto h-full px-8">
+      <div className="w-full h-full px-8">
         <div className="grid grid-cols-[232px_minmax(900px,_1fr)] gap-x-8 h-full">
           <aside className="w-[232px] flex-shrink-0 py-8">
             <Sidebar />

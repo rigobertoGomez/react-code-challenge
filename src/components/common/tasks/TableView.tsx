@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { Status } from "@/models";
-import { TasksContainer } from "@/components/common";
+import { TaskContainer } from "@/components/common";
 
 const headers = [
   { title: "# Task Name", styles: "flex-1 flex-1" },
@@ -33,7 +33,7 @@ function TableView() {
         ))}
       </div>
       {statusList?.map((status) => (
-        <TasksContainer key={`${status}_COLUMN`} status={status} />
+        <TaskContainer key={`${status}_COLUMN`} status={status} />
       ))}
     </div>
   );

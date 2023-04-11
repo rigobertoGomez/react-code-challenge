@@ -10,11 +10,6 @@ interface StatusSelectProps {
   defaultValue: string;
 }
 
-// interface Status {
-//   name: string;
-//   value: Status;
-// }
-
 const statusOptions: string[] = [...Object.keys(Status)];
 
 function StatusSelect({ onChange, defaultValue }: StatusSelectProps) {
@@ -35,7 +30,7 @@ function StatusSelect({ onChange, defaultValue }: StatusSelectProps) {
       <div className="relative inline-block text-left">
         <Listbox.Button className="outline-none">
           <div className="bg-neutral-1/10 text-neutral-1 px-4 py-1 inline-flex items-center space-x-2 rounded max-w-[200px]">
-            <span className="truncate">{selected ? selected : "Status"}</span>
+            <span className="truncate">{selected ? selected?.replaceAll("_", " ") : "Status"}</span>
           </div>
         </Listbox.Button>
         <Transition

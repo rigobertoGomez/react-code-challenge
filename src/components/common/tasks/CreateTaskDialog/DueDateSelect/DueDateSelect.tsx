@@ -13,13 +13,6 @@ interface DueDateSelectProps {
   defaultValue: string
 }
 
-// interface Status {
-//   name: string;
-//   value: Status;
-// }
-
-const statusOptions: string[] = [...Object.keys(Status)];
-
 function StatusSelect({ onChange, defaultValue }: DueDateSelectProps) {
   const [value, setValue] = useState<string | Date | undefined>("");
 

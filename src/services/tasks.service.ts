@@ -4,22 +4,22 @@ export const GET_TASKS =
   gql`
     query GetTasks($input:FilterTaskInput!) {
       tasks(input:$input) {
+        id
+        name
+        dueDate
+        tags
+        pointEstimate
+        status
+        position
+        assignee{
+          avatar
+          createdAt
+          email
+          fullName
           id
-          name
-          dueDate
-          tags
-          pointEstimate
-          status
-          position
-          assignee{
-            avatar
-            createdAt
-            email
-            fullName
-            id
-            type
-            updatedAt            
-          }
+          type
+          updatedAt      
+        }
       }
     }
     `
@@ -34,9 +34,15 @@ export const CREATE_TASK = gql`
       tags
       pointEstimate
       status
+      position
       assignee{
-        fullName
         avatar
+        createdAt
+        email
+        fullName
+        id
+        type
+        updatedAt      
       }
     }
   }
@@ -51,9 +57,15 @@ export const UPDATE_TASK = gql`
       tags
       pointEstimate
       status
+      position
       assignee{
-        fullName
         avatar
+        createdAt
+        email
+        fullName
+        id
+        type
+        updatedAt      
       }
     }
   }
@@ -70,8 +82,13 @@ export const DELETE_TASK = gql`
       status
       position
       assignee{
-        fullName
         avatar
+        createdAt
+        email
+        fullName
+        id
+        type
+        updatedAt      
       }
     }
   }

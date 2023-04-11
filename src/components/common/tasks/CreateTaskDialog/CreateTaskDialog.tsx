@@ -30,7 +30,7 @@ function CreateTaskDialog() {
 
   const [newTask, setNewtask] = useState<any>({
     name: "",
-    assigneeId: "",
+    assigneeId: null,
     dueDate: new Date(),
     pointEstimate: "",
     status: "",
@@ -39,10 +39,14 @@ function CreateTaskDialog() {
 
   const onSubmit = async () => {
     try {
-      await createTask({ variables: { input: { ...newTask } } });
+      const params = {
+        ...newTask,
+        assigneeId: newTask?.assigneeId?.id,
+      };
+      await createTask({ variables: { input: { ...params } } });
       setOpenCreateTaskDialog(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -71,6 +75,7 @@ function CreateTaskDialog() {
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <EstimateSelect
+            defaultValue={newTask?.pointEstimate}
             onChange={(value: string | undefined) =>
               setNewtask((newTask: any) => ({
                 ...newTask,
@@ -79,11 +84,13 @@ function CreateTaskDialog() {
             }
           />
           <AssignmentSelect
-            onChange={(value: string | undefined) =>
+            defaultValue={newTask.assigneeId}
+            onChange={(value: any | undefined) =>
               setNewtask((newTask: any) => ({ ...newTask, assigneeId: value }))
             }
           />
           <TagsSelect
+            defaultValue={newTask.tags}
             onChange={(value: string[] | undefined) =>
               setNewtask((newTask: any) => ({
                 ...newTask,
@@ -92,6 +99,7 @@ function CreateTaskDialog() {
             }
           />
           <StatusSelect
+            defaultValue={newTask.status}
             onChange={(value: string | undefined) =>
               setNewtask((newTask: any) => ({
                 ...newTask,
@@ -100,6 +108,7 @@ function CreateTaskDialog() {
             }
           />
           <DueDateSelect
+            defaultValue={newTask.dueDate}
             onChange={(value: string | undefined) =>
               setNewtask((newTask: any) => ({
                 ...newTask,

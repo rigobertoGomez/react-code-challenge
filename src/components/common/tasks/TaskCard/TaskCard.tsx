@@ -1,44 +1,54 @@
-import { Fragment, ReactNode, useEffect, useState } from "react";
-import clsx from "clsx";
-import { useMutation } from "@apollo/client";
+import { Fragment } from "react";
+// Components
 import { Menu, Transition } from "@headlessui/react";
-import Tag, { TagProps } from "./Tag";
-import TimerTag from "./TimerTag";
+import { Tag, TimerTag } from "@/components/common";
 import { Avatar } from "@/components/ui";
-import { Task, TaskTag, PointEstimate } from "@/models";
-import { formatDate } from "@/utilities";
-import { DELETE_TASK, GET_TASKS } from "@/services";
+import { Task, PointEstimate } from "@/models";
 import { useTasksContext } from "@/context";
-
+// Icons
 import {
   EllipsisHorizontalIcon,
   EditIcon,
   TrashIcon,
-  AlarmIcon,
 } from "@/components/Icons";
 
 interface TaskProps {
   task: Task;
+  setDragged?: React.Dispatch<Task>;
 }
 
-function TaskCard({ task }: TaskProps) {
+function TaskCard({ task, setDragged }: TaskProps) {
   // @ts-ignore
-  const { setOpenDeleteTaskDialog, setOpenCreateTaskDialog, openEditTaskDialog, setOpenEditTaskDialog, setCurrentTask } = useTasksContext();
+  const {
+    setOpenDeleteTaskDialog,
+    setOpenEditTaskDialog,
+    setCurrentTask,
+  }: any = useTasksContext();
 
   const onDeleteTask = (task: Task) => {
-    if(!task?.id) return
+    if (!task?.id) return;
     setCurrentTask(task);
     setOpenDeleteTaskDialog(true);
   };
 
   const onEditTask = (task: Task) => {
-    if(!task?.id) return
+    if (!task?.id) return;
     setCurrentTask(task);
     setOpenEditTaskDialog(true);
   };
 
+  const handleDragStart = () => {
+    if (setDragged) {
+      setDragged(task);
+    }
+  };
+
   return (
-    <article className="w-[348px] min-h-[208px] p-4 bg-neutral-4 rounded-lg space-y-4">
+    <article
+      className="w-[348px] min-h-[208px] p-4 bg-neutral-4 rounded-lg space-y-4 cursor-move"
+      draggable
+      onDragStart={handleDragStart}
+    >
       <div className="flex items-center justify-between">
         <span className="text-neutral-1 text-lg font-semibold flex-1 truncate">
           {task?.name}

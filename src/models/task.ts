@@ -3,10 +3,10 @@ import { User } from './user';
 // Enums
 export enum Status {
     BACKLOG = 'BACKLOG',
-    CANCELLED = 'CANCELLED',
-    DONE= 'DONE',
     IN_PROGRESS = 'IN_PROGRESS',
-    TODO = 'TODO'
+    TODO = 'TODO',
+    DONE= 'DONE',
+    CANCELLED = 'CANCELLED',
 }
 export enum PointEstimate {
     ZERO = 0,
