@@ -1,4 +1,4 @@
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
 import clsx from "clsx";
 import { Listbox, Transition } from "@headlessui/react";
 import { Status } from "@/models";
@@ -7,6 +7,7 @@ import { Tag } from "@/components/common/tasks/TaskCard";
 
 interface StatusSelectProps {
   onChange: (value: string | undefined) => void;
+  defaultValue: string;
 }
 
 // interface Status {
@@ -16,8 +17,12 @@ interface StatusSelectProps {
 
 const statusOptions: string[] = [...Object.keys(Status)];
 
-function StatusSelect({ onChange }: StatusSelectProps) {
-  const [selected, setSelected] = useState<string | undefined>('');
+function StatusSelect({ onChange, defaultValue }: StatusSelectProps) {
+  const [selected, setSelected] = useState<string | undefined>("");
+
+  useEffect(() => {
+    setSelected(defaultValue || "");
+  }, [defaultValue]);
 
   return (
     <Listbox
@@ -29,12 +34,8 @@ function StatusSelect({ onChange }: StatusSelectProps) {
     >
       <div className="relative inline-block text-left">
         <Listbox.Button className="outline-none">
-          <div            
-            className="bg-neutral-1/10 text-neutral-1 px-4 py-1 inline-flex items-center space-x-2 rounded max-w-[200px]"
-          >            
-            <span className="truncate">
-              {selected ? selected : "Status"}
-            </span>
+          <div className="bg-neutral-1/10 text-neutral-1 px-4 py-1 inline-flex items-center space-x-2 rounded max-w-[200px]">
+            <span className="truncate">{selected ? selected : "Status"}</span>
           </div>
         </Listbox.Button>
         <Transition

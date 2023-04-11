@@ -1,4 +1,4 @@
-import { CreateTaskDialog, DeleteTaskDialog } from "@/components/common";
+import { CreateTaskDialog, EditTaskDialog, DeleteTaskDialog } from "@/components/common";
 import { Button } from "@/components/ui";
 import { SwitchButton, TableView, GridView } from "@/components/common";
 import { PlusIcon} from "@/components/Icons";
@@ -22,6 +22,7 @@ export default function Home() {
         {view === "GRID" ? <GridView /> : <TableView />}
       </div>
       <CreateTaskDialog />
+      <EditTaskDialog />
       <DeleteTaskDialog />
     </div>
   );

@@ -1,4 +1,4 @@
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
 import clsx from "clsx";
 import { Menu, Transition } from "@headlessui/react";
 import { Status } from "@/models";
@@ -10,6 +10,7 @@ import "./DueDateSelect.css";
 
 interface DueDateSelectProps {
   onChange: (value: string | undefined) => void;
+  defaultValue: string
 }
 
 // interface Status {
@@ -19,8 +20,12 @@ interface DueDateSelectProps {
 
 const statusOptions: string[] = [...Object.keys(Status)];
 
-function StatusSelect({ onChange }: DueDateSelectProps) {
-  const [value, setValue] = useState<string | Date | undefined>('');
+function StatusSelect({ onChange, defaultValue }: DueDateSelectProps) {
+  const [value, setValue] = useState<string | Date | undefined>("");
+
+  useEffect(() => {
+    setValue(defaultValue);
+  }, [defaultValue]);
 
   const onChangeValue = (value: string) => {
     setValue(value);

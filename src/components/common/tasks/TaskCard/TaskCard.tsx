@@ -22,13 +22,19 @@ interface TaskProps {
 }
 
 function TaskCard({ task }: TaskProps) {
-  const { setOpenDeleteTaskDialog, setCurrentTask } = useTasksContext();
+  // @ts-ignore
+  const { setOpenDeleteTaskDialog, setOpenCreateTaskDialog, openEditTaskDialog, setOpenEditTaskDialog, setCurrentTask } = useTasksContext();
 
-  const onDeleteTask = async (task: Task) => {
-    try {
-      setCurrentTask(task);
-      setOpenDeleteTaskDialog(true);
-    } catch (error) {}
+  const onDeleteTask = (task: Task) => {
+    if(!task?.id) return
+    setCurrentTask(task);
+    setOpenDeleteTaskDialog(true);
+  };
+
+  const onEditTask = (task: Task) => {
+    if(!task?.id) return
+    setCurrentTask(task);
+    setOpenEditTaskDialog(true);
   };
 
   return (
@@ -59,6 +65,7 @@ function TaskCard({ task }: TaskProps) {
                       className={`${
                         active ? "bg-neutral-4 text-white" : "text-neutral-1"
                       } group flex w-full text-[15px] items-center rounded-md px-4 py-2 text-sm`}
+                      onClick={() => onEditTask(task)}
                     >
                       <EditIcon className="h-4 w-4 flex-shrink-0" />
                       <span className="ml-2">Edit</span>

@@ -1,12 +1,12 @@
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
 import clsx from "clsx";
 import { Listbox, Transition } from "@headlessui/react";
 import { PointEstimate } from "@/models";
 import { EstimateIcon } from "@/components/Icons";
-import { Tag } from "@/components/common/tasks/TaskCard";
 
 interface EstimateSelectProps {
   onChange: (value: string | undefined) => void;
+  defaultValue: string;
 }
 
 interface EstimateOption {
@@ -25,21 +25,24 @@ const estimatePointsList: EstimateOption[] = [
     }),
 ];
 
-function EstimateSelect({ onChange }: EstimateSelectProps) {
-  const [selected, setSelected] = useState<EstimateOption | null>(null);
+function EstimateSelect({ onChange, defaultValue }: EstimateSelectProps) {
+  const [selected, setSelected] = useState<PointEstimate | null>(null);
+
+  useEffect(() => {
+    setSelected(PointEstimate[defaultValue as keyof typeof PointEstimate] || null);
+  }, [defaultValue]);
 
   return (
     <Listbox
       value={selected}
       onChange={(value) => {
-        setSelected(value)        
-        onChange(value?.value)
+        onChange(String(value));
       }}
     >
       <div className="relative inline-block text-left">
         <Listbox.Button className="outline-none">
           <div
-            title={selected ? `${selected?.name}` : "Assignee"}
+            title={selected ? `${selected}` : "Assignee"}
             className={clsx(
               "text-neutral-1 px-4 py-1 inline-flex items-center space-x-2 rounded max-w-[200px]",
               selected ? "bg-transparent" : "bg-neutral-1/10"
@@ -47,7 +50,7 @@ function EstimateSelect({ onChange }: EstimateSelectProps) {
           >
             <EstimateIcon className="w-4 h-4" />
             <span className="truncate">
-              {selected ? `${selected?.name} points` : "Estimate"}
+              {selected ? `${selected} points` : "Estimate"}
             </span>
           </div>
         </Listbox.Button>
@@ -67,7 +70,7 @@ function EstimateSelect({ onChange }: EstimateSelectProps) {
             <Listbox.Options className="divide-y divide-gray-100 outline-none">
               <div className="">
                 {estimatePointsList?.map((option) => (
-                  <Listbox.Option key={option.value} value={option}>
+                  <Listbox.Option key={option.value} value={option?.value}>
                     {({ active }) => (
                       <button
                         className={`${

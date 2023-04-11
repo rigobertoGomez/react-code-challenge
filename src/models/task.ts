@@ -28,6 +28,16 @@ export enum TaskTag {
 export type FilterTaskInput = {  
     status: Status
 }
+export type UpdateTaskInput = {
+    assigneeId: string
+    dueDate: Date
+    id: string
+    name: string
+    pointEstimate: PointEstimate
+    position: number
+    status: Status
+    tags: [TaskTag]
+    }
 
 export type Task = {
     assignee: User

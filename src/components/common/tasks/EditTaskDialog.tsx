@@ -1,55 +1,66 @@
 import { Dialog, Button } from "@/components/ui";
 import { useMutation, gql } from "@apollo/client";
 import { CREATE_TASK, GET_TASKS } from "@/services";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTasksContext } from "@/context/TasksContext";
+import { useUpdateTask } from "@/hooks";
 // Components
-import EstimateSelect from "./EstimateSelect";
-import AssignmentSelect from "./AssigmentSelect";
-import TagsSelect from "./TagsSelect";
-import StatusSelect from "./StatusSelect";
-import DueDateSelect from "./DueDateSelect/DueDateSelect";
+import {
+  EstimateSelect,
+  TagsSelect,
+  StatusSelect,
+  DueDateSelect,
+} from "@/components/common";
 
-function CreateTaskDialog() {
-  const { setCurrentTask, openCreateTaskDialog, setOpenCreateTaskDialog }: any =
-    useTasksContext();
+function EditTaskDialog() {
+  const {
+    currentTask,
+    setCurrentTask,
+    openEditTaskDialog,
+    setOpenEditTaskDialog,
+  }: any = useTasksContext();
 
-  const [createTask, { loading, error }] = useMutation(CREATE_TASK, {
-    update(cache, { data }) {
-      const { tasks }: any = cache.readQuery({
-        query: GET_TASKS,
-        variables: { input: { status: data.createTask.status } },
-      });
-      cache.writeQuery({
-        query: GET_TASKS,
-        variables: { input: { status: data.createTask.status } },
-        data: { tasks: [data.createTask, ...tasks] },
-      });
-    },
-  });
+  const [updateTask, { loading, error }] = useUpdateTask();
 
-  const [newTask, setNewtask] = useState<any>({
+  const [editTask, setEditTask] = useState<any>({
+    id: "",
     name: "",
     assigneeId: "",
     dueDate: new Date(),
     pointEstimate: "",
     status: "",
     tags: [],
+    position: 0,
   });
+
+  useEffect(() => {
+    if (currentTask?.id) {
+      setEditTask({
+        id: currentTask?.id,
+        name: currentTask?.name,
+        assigneeId: currentTask?.assignee?.id,
+        dueDate: currentTask?.dueDate,
+        pointEstimate: currentTask?.pointEstimate,
+        status: currentTask?.status,
+        tags: currentTask?.tags,
+        position: currentTask?.position,
+      });
+    }
+  }, [currentTask]);
 
   const onSubmit = async () => {
     try {
-      await createTask({ variables: { input: { ...newTask } } });
-      setOpenCreateTaskDialog(false);
+      await updateTask({ variables: { input: { ...editTask } } });
+      setOpenEditTaskDialog(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   return (
     <Dialog
-      open={openCreateTaskDialog}
-      close={() => setOpenCreateTaskDialog(false)}
+      open={openEditTaskDialog}
+      close={() => setOpenEditTaskDialog(false)}
       maxWidth={572}
     >
       <div className="space-y-6">
@@ -60,10 +71,10 @@ function CreateTaskDialog() {
             placeholder="Task title"
             autoComplete="off"
             name="search"
-            value={newTask?.name}
+            value={editTask?.name}
             onChange={(e) =>
-              setNewtask((newTask: any) => ({
-                ...newTask,
+              setEditTask((editTask: any) => ({
+                ...editTask,
                 name: e?.target.value,
               }))
             }
@@ -71,38 +82,37 @@ function CreateTaskDialog() {
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <EstimateSelect
+            defaultValue={editTask?.pointEstimate}
             onChange={(value: string | undefined) =>
-              setNewtask((newTask: any) => ({
-                ...newTask,
+              setEditTask((editTask: any) => ({
+                ...editTask,
                 pointEstimate: value,
               }))
             }
           />
-          <AssignmentSelect
-            onChange={(value: string | undefined) =>
-              setNewtask((newTask: any) => ({ ...newTask, assigneeId: value }))
-            }
-          />
           <TagsSelect
+            defaultValue={currentTask?.tags}
             onChange={(value: string[] | undefined) =>
-              setNewtask((newTask: any) => ({
-                ...newTask,
+              setEditTask((editTask: any) => ({
+                ...editTask,
                 tags: value,
               }))
             }
           />
           <StatusSelect
+            defaultValue={currentTask?.status}
             onChange={(value: string | undefined) =>
-              setNewtask((newTask: any) => ({
-                ...newTask,
+              setEditTask((editTask: any) => ({
+                ...editTask,
                 status: value,
               }))
             }
           />
           <DueDateSelect
+            defaultValue={currentTask?.dueDate}
             onChange={(value: string | undefined) =>
-              setNewtask((newTask: any) => ({
-                ...newTask,
+              setEditTask((editTask: any) => ({
+                ...editTask,
                 dueDate: value,
               }))
             }
@@ -114,7 +124,7 @@ function CreateTaskDialog() {
             variant="secondary"
             disabled={loading}
             onClick={() => {
-              setOpenCreateTaskDialog(false);
+              setOpenEditTaskDialog(false);
               setCurrentTask(null);
             }}
           />
@@ -129,4 +139,4 @@ function CreateTaskDialog() {
   );
 }
 
-export default CreateTaskDialog;
+export default EditTaskDialog;

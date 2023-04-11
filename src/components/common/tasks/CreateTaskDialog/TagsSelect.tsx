@@ -1,4 +1,4 @@
-import { useState, Fragment, useMemo } from "react";
+import { useState, Fragment, useMemo, useEffect } from "react";
 import clsx from "clsx";
 import { Menu, Transition } from "@headlessui/react";
 import { TaskTag } from "@/models";
@@ -7,6 +7,7 @@ import { Tag } from "@/components/common/tasks/TaskCard";
 
 interface TagsSelectProps {
   onChange: (value: string[] | undefined) => void;
+  defaultValue: string[];
 }
 
 const tagsOptions: string[] = [
@@ -15,18 +16,22 @@ const tagsOptions: string[] = [
     .map((value) => String(TaskTag[value as keyof typeof TaskTag])),
 ];
 
-function TagsSelect({onChange}: TagsSelectProps) {
+function TagsSelect({ onChange, defaultValue }: TagsSelectProps) {
   const [selected, setSelected] = useState<string[]>([]);
 
+  useEffect(() => {
+    setSelected(defaultValue || []);
+  }, [defaultValue]);
+
   const handleSelected = (value: string) => {
-    let updateSelected = [...selected]
+    let updateSelected = [...selected];
 
     if (selected.includes(value)) {
-      updateSelected = updateSelected.filter((selected) => selected !== value)
-      setSelected(updateSelected)
+      updateSelected = updateSelected.filter((selected) => selected !== value);
+      setSelected(updateSelected);
       onChange(updateSelected);
     } else {
-      updateSelected = [...updateSelected, value]
+      updateSelected = [...updateSelected, value];
       setSelected(updateSelected);
       onChange(updateSelected);
     }

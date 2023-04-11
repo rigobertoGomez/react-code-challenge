@@ -1,28 +1,33 @@
 import clsx from "clsx";
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { Avatar } from "@/components/ui";
-import {  UserIcon } from "@/components/Icons";
+import { UserIcon } from "@/components/Icons";
 import { useUsers } from "@/hooks";
 import { User } from "@/models/user";
 
 interface AssignmentSelectProps {
   onChange: (value: string | undefined) => void;
+  defaultValue: User;
 }
 
-function AssignmentSelect({ onChange }: AssignmentSelectProps) {
+function AssignmentSelect({ onChange, defaultValue }: AssignmentSelectProps) {
   const [selected, setSelected] = useState<User | null>(null);
 
   // Fetch users
   const { data } = useUsers();
   const users = data?.users;
 
+  useEffect(() => {
+    setSelected(defaultValue || null);
+  }, [defaultValue]);
+
   return (
     <Listbox
       value={selected}
       onChange={(value) => {
-        setSelected(value)        
-        onChange(value?.id)
+        setSelected(value);
+        onChange(value?.id);
       }}
     >
       <div className="relative inline-block text-left">

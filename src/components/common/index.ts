@@ -1,6 +1,7 @@
 export { default as DueDateSelect } from './tasks/CreateTaskDialog/DueDateSelect/DueDateSelect';
 export * from './tasks/CreateTaskDialog';
 export { default as DeleteTaskDialog } from './tasks/DeleteTaskDialog';
+export { default as EditTaskDialog } from './tasks/EditTaskDialog';
 export { default as GridView } from './tasks/GridView';
 export { default as SwitchButton } from './tasks/SwitchButton';
 export { default as TableView } from './tasks/TableView';
