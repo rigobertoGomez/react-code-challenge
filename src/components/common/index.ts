@@ -1,5 +1,10 @@
-export * from './CreateTaskDialog';
-export { default as DeleteTaskDialog } from './DeleteTaskDialog';
-export { default as SwitchButton } from './SwitchButton';
-export * from './TaskCard';
-export { default as TaskColumn } from './TaskColumn';
+export { default as DueDateSelect } from './tasks/CreateTaskDialog/DueDateSelect/DueDateSelect';
+export * from './tasks/CreateTaskDialog';
+export { default as DeleteTaskDialog } from './tasks/DeleteTaskDialog';
+export { default as GridView } from './tasks/GridView';
+export { default as SwitchButton } from './tasks/SwitchButton';
+export { default as TableView } from './tasks/TableView';
+export * from './tasks/TaskCard';
+export { default as TaskColumn } from './tasks/TaskColumn';
+export { default as TaskTable } from './tasks/TaskTable';
+export { default as TasksContainer } from './tasks/TasksContainer';

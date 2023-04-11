@@ -1,10 +1,8 @@
 import clsx from "clsx";
 import { useState, Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
-import { PointEstimate } from "@/models";
 import { Avatar } from "@/components/ui";
-import { EstimateIcon, UserIcon } from "@/components/Icons";
-import { Tag } from "@/components/common/TaskCard";
+import {  UserIcon } from "@/components/Icons";
 import { useUsers } from "@/hooks";
 import { User } from "@/models/user";
 
@@ -16,7 +14,7 @@ function AssignmentSelect({ onChange }: AssignmentSelectProps) {
   const [selected, setSelected] = useState<User | null>(null);
 
   // Fetch users
-  const { loading, error, data } = useUsers();
+  const { data } = useUsers();
   const users = data?.users;
 
   return (

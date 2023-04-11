@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { useMutation } from "@apollo/client";
 import { Menu, Transition } from "@headlessui/react";
 import Tag, { TagProps } from "./Tag";
+import TimerTag from "./TimerTag";
 import { Avatar } from "@/components/ui";
 import { Task, TaskTag, PointEstimate } from "@/models";
 import { formatDate } from "@/utilities";
@@ -15,51 +16,6 @@ import {
   TrashIcon,
   AlarmIcon,
 } from "@/components/Icons";
-
-interface TimerTagProps {
-  date: Date;
-}
-
-const TimerTag = ({ date }: TimerTagProps) => {
-  const [title, setTitle] = useState<string>();
-  const [variant, setVariant] = useState<TagProps["variant"]>();
-
-  const getTaskTime = (date: Date) => {
-    const today = new Date();
-    const currentDate = new Date(date);
-    const twoDaysAgo = new Date(date);
-    twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
-
-    const title = formatDate(date);
-
-    // Define colors
-    if (currentDate >= today) {
-      const onTimetitle =
-        currentDate.toDateString() === today.toDateString() ? "Today" : title;
-      setTitle(onTimetitle);
-      setVariant("default");
-      return;
-    } else if (today >= twoDaysAgo && today < currentDate) {
-      setVariant("yellow");
-      setTitle(title);
-      return;
-    } else {
-      setVariant("red");
-      setTitle(title);
-      return;
-    }
-  };
-
-  useEffect(() => {
-    if (date) getTaskTime(date);
-  }, [date]);
-
-  return (
-    <Tag title={title} variant={variant}>
-      <AlarmIcon className="w-5 h-5" />
-    </Tag>
-  );
-};
 
 interface TaskProps {
   task: Task;
@@ -132,7 +88,7 @@ function TaskCard({ task }: TaskProps) {
         <span className="text-neutral-1 text-[15px] font-semibold">
           {`${PointEstimate[task?.pointEstimate]} points`}
         </span>
-        <TimerTag date={task?.dueDate} />
+        <TimerTag date={task?.dueDate} variant="default" />
       </div>
       <ul className="flex items-center flex-wrap gap-1">
         {task?.tags?.map((tag) => (

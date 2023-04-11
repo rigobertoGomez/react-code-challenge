@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { Listbox, Transition } from "@headlessui/react";
 import { PointEstimate } from "@/models";
 import { EstimateIcon } from "@/components/Icons";
-import { Tag } from "@/components/common/TaskCard";
+import { Tag } from "@/components/common/tasks/TaskCard";
 
 interface EstimateSelectProps {
   onChange: (value: string | undefined) => void;
@@ -60,7 +60,7 @@ function EstimateSelect({ onChange }: EstimateSelectProps) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <div className="absolute px-1 py-1 right-0 mt-2 w-[138px] origin-top-right rounded-md bg-neutral-3 shadow-lg ring-1 ring-neutral-2 focus:outline-none space-y-1 z-20">
+          <div className="absolute px-1 py-1 left-0 mt-2 w-[138px] origin-top-right rounded-md bg-neutral-3 shadow-lg ring-1 ring-neutral-2 focus:outline-none space-y-1 z-20">
             <span className="font-semibold text-neutral-2 text-xl px-3">
               Estimate
             </span>

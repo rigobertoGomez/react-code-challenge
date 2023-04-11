@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { Listbox, Transition } from "@headlessui/react";
 import { Status } from "@/models";
 import { EstimateIcon } from "@/components/Icons";
-import { Tag } from "@/components/common/TaskCard";
+import { Tag } from "@/components/common/tasks/TaskCard";
 
 interface StatusSelectProps {
   onChange: (value: string | undefined) => void;

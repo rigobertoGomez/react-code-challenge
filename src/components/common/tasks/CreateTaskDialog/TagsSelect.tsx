@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { Menu, Transition } from "@headlessui/react";
 import { TaskTag } from "@/models";
 import { TagIcon } from "@/components/Icons";
-import { Tag } from "@/components/common/TaskCard";
+import { Tag } from "@/components/common/tasks/TaskCard";
 
 interface TagsSelectProps {
   onChange: (value: string[] | undefined) => void;
