@@ -18,7 +18,6 @@ interface TaskProps {
 }
 
 function TaskCard({ task, setDragged }: TaskProps) {
-  // @ts-ignore
   const {
     setOpenDeleteTaskDialog,
     setOpenEditTaskDialog,

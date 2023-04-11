@@ -9,3 +9,4 @@ export * from './tasks/TaskCard';
 export { default as TaskColumn } from './tasks/TaskColumn';
 export { default as TaskContainer } from './tasks/TaskContainer';
 export { default as TaskTable } from './tasks/TaskTable';
+export { default as TasksEmptyState } from './tasks/TasksEmptyState';

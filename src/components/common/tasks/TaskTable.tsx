@@ -1,8 +1,9 @@
 import { Disclosure } from "@headlessui/react";
 import { Task, PointEstimate } from "@/models";
 import { Avatar } from "@/components/ui";
-import TimerTag from "./TaskCard/TimerTag";
-import { Tag } from "./TaskCard";
+// import TimerTag from "./TaskCard/TimerTag";
+// import { Tag } from "./TaskCard";
+import { TasksEmptyState, Tag, TimerTag } from "@/components/common";
 import { ChevronIcon } from "@/components/Icons";
 
 interface TaskTableProps {
@@ -126,10 +127,8 @@ function TaskTable({ status, tasks, loading }: TaskTableProps) {
                         ))}
                       </>
                     ) : (
-                      <li className="h-full flex flex-col items-center justify-center">
-                        <p className="text-neutral-2 py-12">
-                          Results Not Found
-                        </p>
+                      <li className="h-full flex flex-col items-center justify-center py-8">
+                        <TasksEmptyState />
                       </li>
                     )}
                   </>
